@@ -1,0 +1,434 @@
+Homework 5 Design Document
+
+|ID Block--------------------------------|
+|Name: Sonja Wing Yan Cheung             |
+|Course: CSCI 102                        |
+|Lab Section: 30238R                     |
+|Time: Tuesday 5:30pm                    |
+|Date: Mar 28, 2012                      |
+|----------------------------------------|
+
+Description of the game 
+* In the program, a random number will be generated and displayed on the monitor. To get points, users have to catch the dropping numbers which are the factors of the   random number showed. Users should move the line side by side to catch the numbers dropping. When one factor is successfully caught, the user will get 10 points. However, when the number caught is not a factor of the random number shown on the monitor, the user will lose a life. Users will have 3 lives in total. When he/she loses all 3 lives, a restart option will be shown.
+
+Objects appearing in the game:
+1. Moving line
+	* It is the "main character" of the game. Users can move it side by side to run into the dropping numbers
+
+2. Dropping numbers
+	* These are moving objects that the line has to catch. The numbers dropping will be random.
+
+3. Longer option
+	* The long option will be denoted by "L". When the line catches the "Longer" option, the line will become longer so that it is 
+	  easier to move side by side and more items can be caught
+
+4. Shorter option
+	* The shorter option will be denoted by "S". When the line catches the "Shorter" option, the line will become shorter
+
+5. One up
+	* The one up option will be denoted by "O". When the line catches the "One up" option, the user iwll have one more life
+
+6. Number
+	* It shows the number generated and the user has to catch its factors throughout the game
+
+7. Monster
+	* The monster will follow the line or even move faster than the line in order to catch the number that are factors of the number 
+	  shown before the player
+
+8. Monster icon
+	* When this icon is caught, the monster will appear
+
+9. Star option
+	* When it is caught, the line will be in the width of the screen
+	* If the width is already in full length, catching another star icon will reset the line back to its original length
+
+10. Devil
+	* The Devil "shoots" at you - it moves towards the line with a spiral, if the player does not move the line, it will be hit
+	* Catching the devil icon will reverse the movement of the arrow keys (i.e. when the left arrow is pressed, the line will move to 
+	  the right, vice versa)
+
+11. Double line option
+	* When the double line option is cautht, another line will appear and both lines can catch the dropping objects
+
+12. Bomb
+	* The bomb "shoots" the line - it is dropped from above at the x-coordinate of the line, if the line does not move, it will get hit 
+	  and lose a life 
+
+How to play:
+* Players should press the backspace key to start the game
+*Players should press the arrow keys to move the lines side by side
+
+* Key:
+	Mushroom graphic: One life up
+	'L' graphic: Making the line longer
+	'S' graphic: Making the line shorter
+	'D' graphic: Creating another line
+	'M' graphic: Creating a monster
+	Devil graphic: Reverse movement of the line
+	Bomb graphic: Lose a life
+	Star graphic: Making the line as long as the width of the window
+
+Purpose/Overview
+* This is to show the progress of my game with the use of Qt
+
+Requirement
+* Prompt user for confirming to play the game by pressing the backspace key
+* Prompt user to press the arrow keys to move the line for the game
+
+Class
+* Line 
+Subclass: ShortLine, LongLine, FullLine
+|--------------------------------------------------|
+|               	Line	                   |
+|--------------------------------------------------|
+|private:					   |
+|	    imag: QImage			   |
+|	    rect: QRect		   		   |
+|						   |
+|--------------------------------------------------|
+|public:					   |
+|	Line()					   |
+|	~Line()					   |
+|	virtual resetState(): void		   |
+|    	virtual moveLeft(int): void	 	   |
+|    	virtual moveRight(int): void		   |
+|    	virtual getRect(): QRect		   |
+|    	virtual getImage():QImage		   |
+|    	getX(): int				   |
+|    	getY(): int				   |
+|    	void setState(int x);			   |
+|						   |
+|--------------------------------------------------|
+
+|--------------------------------------------------|
+|               ShortLine	                   |
+|--------------------------------------------------|
+|private:					   |
+|	    imag: QImage			   |
+|	    rect: QRect		   		   |
+|						   |
+|--------------------------------------------------|
+|public:					   |
+|	ShortLine()				   |
+|	~ShortLine()				   |
+|	virtual resetState(): void		   |
+|    	virtual moveLeft(int): void	 	   |
+|    	virtual moveRight(int): void		   |
+|    	virtual getRect(): QRect		   |
+|    	virtual getImage():QImage		   |
+|    	getX(): int				   |
+|    	getY(): int				   |
+|    	void setState(int x);			   |
+|						   |
+|--------------------------------------------------|
+
+|--------------------------------------------------|
+|               LongLine	                   |
+|--------------------------------------------------|
+|private:					   |
+|	    imag: QImage			   |
+|	    rect: QRect		   		   |
+|						   |
+|--------------------------------------------------|
+|public:					   |
+|	LongLine()				   |
+|	~LongLine()				   |
+|	virtual resetState(): void		   |
+|    	virtual moveLeft(int): void	 	   |
+|    	virtual moveRight(int): void		   |
+|    	virtual getRect(): QRect		   |
+|    	virtual getImage():QImage		   |
+|    	getX(): int				   |
+|    	getY(): int				   |
+|    	void setState(int x);			   |
+|						   |
+|--------------------------------------------------|
+
+|--------------------------------------------------|
+|               FullLine	                   |
+|--------------------------------------------------|
+|private:					   |
+|	    imag: QImage			   |
+|	    rect: QRect		   		   |
+|						   |
+|--------------------------------------------------|
+|public:					   |
+|	FullLine()				   |
+|	~FullLine()				   |
+|	virtual resetState(): void		   |
+|    	virtual moveLeft(int): void	 	   |
+|    	virtual moveRight(int): void		   |
+|    	virtual getRect(): QRect		   |
+|    	virtual getImage():QImage		   |
+|    	getX(): int				   |
+|    	getY(): int				   |
+|    	void setState(int x);			   |
+|						   |
+|--------------------------------------------------|
+
+* Drop
+Subclass: Shorter, Longer, Double, Mons, Star, Devil,NextLevel, Bomb
+|--------------------------------------------------|
+|               	Drop	                   |
+|--------------------------------------------------|
+|private:					   |
+|	xdir: int				   |
+|	ydir: int				   |
+|    	stuck: bool 				   |
+|    	image: QImage				   |
+|    	rect: QRect		   		   |
+|						   |
+|--------------------------------------------------|
+|public:					   |
+|    virtual resetState(int): void		   |
+|    virtual moveBottom(int): void		   |
+|    virtual autoMove(int,int): void  		   |
+|    virtual setYDir(int): void			   |
+|    virtual getYDir(): int			   |
+|    virtual getRect(): QRect			   |
+|    virtual getImage(): QImage			   |
+|--------------------------------------------------|
+
+|--------------------------------------------------|
+|               	Shorter	                   |
+|--------------------------------------------------|
+|private:					   |
+|	xdir: int				   |
+|	ydir: int				   |
+|    	stuck: bool 				   |
+|    	image: QImage				   |
+|    	rect: QRect		   		   |
+|						   |
+|--------------------------------------------------|
+|public:					   |
+|    virtual resetState(int): void		   |
+|    virtual moveBottom(int): void		   |
+|    virtual autoMove(int,int): void  		   |
+|    virtual setYDir(int): void			   |
+|    virtual getYDir(): int			   |
+|    virtual getRect(): QRect			   |
+|    virtual getImage(): QImage			   |
+|--------------------------------------------------|
+
+|--------------------------------------------------|
+|               	Longer	                   |
+|--------------------------------------------------|
+|private:					   |
+|	xdir: int				   |
+|	ydir: int				   |
+|    	stuck: bool 				   |
+|    	image: QImage				   |
+|    	rect: QRect		   		   |
+|						   |
+|--------------------------------------------------|
+|public:					   |
+|    virtual resetState(int): void		   |
+|    virtual moveBottom(int): void		   |
+|    virtual autoMove(int,int): void  		   |
+|    virtual setYDir(int): void			   |
+|    virtual getYDir(): int			   |
+|    virtual getRect(): QRect			   |
+|    virtual getImage(): QImage			   |
+|--------------------------------------------------|
+
+|--------------------------------------------------|
+|               	Bomb	                   |
+|--------------------------------------------------|
+|private:					   |
+|	xdir: int				   |
+|	ydir: int				   |
+|    	stuck: bool 				   |
+|    	image: QImage				   |
+|    	rect: QRect		   		   |
+|						   |
+|--------------------------------------------------|
+|public:					   |
+|    virtual resetState(int): void		   |
+|    virtual moveBottom(int): void		   |
+|    virtual autoMove(int,int): void  		   |
+|    virtual setYDir(int): void			   |
+|    virtual getYDir(): int			   |
+|    virtual getRect(): QRect			   |
+|    virtual getImage(): QImage			   |
+|--------------------------------------------------|
+
+|--------------------------------------------------|
+|               NextLevel	                   |
+|--------------------------------------------------|
+|private:					   |
+|	xdir: int				   |
+|	ydir: int				   |
+|    	stuck: bool 				   |
+|    	image: QImage				   |
+|    	rect: QRect		   		   |
+|						   |
+|--------------------------------------------------|
+|public:					   |
+|    virtual resetState(int): void		   |
+|    virtual moveBottom(int): void		   |
+|    virtual autoMove(int,int): void  		   |
+|    virtual setYDir(int): void			   |
+|    virtual getYDir(): int			   |
+|    virtual getRect(): QRect			   |
+|    virtual getImage(): QImage			   |
+|--------------------------------------------------|
+
+|--------------------------------------------------|
+|               	Mons	                   |
+|--------------------------------------------------|
+|private:					   |
+|	xdir: int				   |
+|	ydir: int				   |
+|    	stuck: bool 				   |
+|    	image: QImage				   |
+|    	rect: QRect		   		   |
+|						   |
+|--------------------------------------------------|
+|public:					   |
+|    virtual resetState(int): void		   |
+|    virtual moveBottom(int): void		   |
+|    virtual autoMove(int,int): void  		   |
+|    virtual setYDir(int): void			   |
+|    virtual getYDir(): int			   |
+|    virtual getRect(): QRect			   |
+|    virtual getImage(): QImage			   |
+|--------------------------------------------------|
+
+|--------------------------------------------------|
+|               	Star	                   |
+|--------------------------------------------------|
+|private:					   |
+|	xdir: int				   |
+|	ydir: int				   |
+|    	stuck: bool 				   |
+|    	image: QImage				   |
+|    	rect: QRect		   		   |
+|						   |
+|--------------------------------------------------|
+|public:					   |
+|    virtual resetState(int): void		   |
+|    virtual moveBottom(int): void		   |
+|    virtual autoMove(int,int): void  		   |
+|    virtual setYDir(int): void			   |
+|    virtual getYDir(): int			   |
+|    virtual getRect(): QRect			   |
+|    virtual getImage(): QImage			   |
+|--------------------------------------------------|
+
+|--------------------------------------------------|
+|               	Devil	                   |
+|--------------------------------------------------|
+|private:					   |
+|	xdir: int				   |
+|	ydir: int				   |
+|    	stuck: bool 				   |
+|    	image: QImage				   |
+|    	rect: QRect		   		   |
+|						   |
+|--------------------------------------------------|
+|public:					   |
+|    virtual resetState(int): void		   |
+|    virtual moveBottom(int): void		   |
+|    virtual autoMove(int,int): void  		   |
+|    virtual setYDir(int): void			   |
+|    virtual getYDir(): int			   |
+|    virtual getRect(): QRect			   |
+|    virtual getImage(): QImage			   |
+|--------------------------------------------------|
+
+* Monster
+|--------------------------------------------------|
+|               	Monster	                   |
+|--------------------------------------------------|
+|private:					   |
+|	xdir: int				   |
+|	ydir: int				   |
+|    	stuck: bool 				   |
+|    	image: QImage				   |
+|    	rect: QRect		   		   |
+|						   |
+|--------------------------------------------------|
+|public:					   |
+|	resetState(int): void			   |
+|  	moveBottom(int): void			   |
+|   	autoMove(int,int): void  		   |
+|    	setYDir(int): void			   |
+|    	getYDir(): int				   |
+|    	getRect(): QRect			   |
+|    	getImage(): QImage			   |
+|--------------------------------------------------|
+
+*Number
+|--------------------------------------------------|
+|               	Number	                   |
+|--------------------------------------------------|
+|private:					   |
+|	xdir: int				   |
+|	ydir: int				   |
+|    	stuck: bool 				   |
+|    	image: QImage				   |
+|    	rect: QRect		   		   |
+|						   |
+|--------------------------------------------------|
+|public:					   |
+|	resetState(): void			   |
+|    	moveBottom(int): void 			   |
+|    	autoMove(int): void 			   |
+|       setYDir(int): void			   |
+|   	getX(): int				   |
+|    	getY(): int			   	   |
+|    	getNum(): int				   |
+|    	getHeight(): int			   |
+|    	getWidth(): int				   |
+|   	setdropNum(): void			   |
+|       getRect(): QRect			   |
+|    	getNumber(): QString			   |
+|--------------------------------------------------|
+
+* Breakout
+|--------------------------------------------------| 
+|               Breakout           	           |
+|--------------------------------------------------|
+|public:					   |
+|	Breakout(QWidget *parent = 0)		   |
+|    	~Breakout()		   		   |
+|						   |
+|--------------------------------------------------|
+|protected:					   |
+|	paintEvent(QPaintEvent *event): void	   |
+|    	timerEvent(QTimerEvent *event): void	   |
+|    	keyPressEvent(QKeyEvent *event): void	   |
+|	startGame(): void			   |
+|  	pauseGame() void			   |
+|    	stopGame(): void			   |
+|    	victory(): void			   	   |
+|						   |
+|--------------------------------------------------|
+|private:					   |
+|	x: int				  	   |
+|    	timerId: int				   |
+|    	line: Line *				   |
+|    	shorter: Shorter *			   |
+|    	gameOver: bool				   |
+|    	gameWon: bool				   |
+|    	gameStarted: bool			   |
+|    	paused: bool				   |
+|						   |
+|--------------------------------------------------|
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

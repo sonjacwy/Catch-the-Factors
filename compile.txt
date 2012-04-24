@@ -1,0 +1,4 @@
+Type "qmake -project"
+Type "qmake"
+Type "make"
+Then type "./hw5"
